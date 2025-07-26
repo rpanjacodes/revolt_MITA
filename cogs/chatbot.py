@@ -52,6 +52,13 @@ class ChatBot(commands.Cog):
         await self.db.set_chatbot_channel(server_id, channel_id)
         await ctx.send("✅ This channel is now the chatbot channel.")
 
+    @commands.command(name="removechat")
+    async def remove_chat_channel(self, ctx):
+        server_id = str(ctx.server.id)
+
+        await self.db.remove_chatbot_channel(server_id)
+        await ctx.send("❌ Chatbot channel removed. I will no longer reply in any channel.")
+
     @commands.Cog.listener()
     async def on_message(self, message):
         if message.author.bot or not message.server:
