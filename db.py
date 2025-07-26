@@ -3,15 +3,11 @@ import asyncpg
 class Database:
     def __init__(self):
         self.pool = None
+        # 🔧 Your full PostgreSQL connection string (DSN) goes here:
+        self.dsn_url = "postgresql://username:password@host:port/database_name"
 
     async def connect(self):
-        self.pool = await asyncpg.create_pool(
-            user="your_pg_user",          # 🔁 Replace this
-            password="your_pg_password",  # 🔁 Replace this
-            database="your_pg_db",        # 🔁 Replace this
-            host="localhost",             # Or your DB host/IP
-            port=5432
-        )
+        self.pool = await asyncpg.create_pool(self.dsn_url)
 
     async def setup_tables(self):
         await self.pool.execute("""
